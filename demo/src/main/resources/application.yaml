@@ -1,0 +1,11 @@
+spring:
+    datasource: # 데이터 소스로 mySQL을 연동하겠습니다.
+        url: jdbc:mysql://localhost:3306/testdb?autoReconnect=true&characterEncoding=UTF-8&serverTimezone=UTC # mySQL을 설치한 서버(ec2 등)의 주소
+        username: testuser # mySQL 계정 (root 계정 사용은 자제 부탁드립니다.)
+        password: password1004! # mySQL 계정 암호
+        driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+    mapper-locations: mapper/*.xml
+    type-aliases-package: com.example.demo.entity
+    configuration:
+        map-underscore-to-camel-case: true
