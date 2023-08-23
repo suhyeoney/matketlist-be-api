@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.LocationDao">
+
+  <select id="getLocations" resultType="Location">
+    SELECT
+    id
+    ,place_id as placeId
+    ,name
+    ,address
+    ,icon_url as iconUrl
+    ,latitude
+    ,longitude
+    ,phone_number as phoneNumber
+    ,website
+    ,user_register_date as userRegisterDate
+    ,compound_code as compoundCode
+    ,register_user as registerUser
+    FROM testdb.tbl_location
+  </select>
+
+  <select id="getLocationsByRegisterUserId" resultType="Location">
+    SELECT
+    id
+    ,place_id as placeId
+    ,name
+    ,address
+    ,icon_url as iconUrl
+    ,latitude
+    ,longitude
+    ,phone_number as phoneNumber
+    ,website
+    ,user_register_date as userRegisterDate
+    ,compound_code as compoundCode
+    ,register_user as registerUser
+    FROM testdb.tbl_location
+    WHERE register_user = #{ registerUserId }
+  </select>
+
+  <insert id="insertLocation" parameterType="Location">
+    INSERT INTO testdb.tbl_location(
+    place_id
+    ,name
+    ,address
+    ,icon_url
+    ,latitude
+    ,longitude
+    ,phone_number
+    ,website
+    ,user_register_date
+    ,compound_code
+    ,register_user)
+    VALUES (
+    #{ location.placeId, jdbcType=VARCHAR }
+    ,#{ location.name, jdbcType=VARCHAR }
+    ,#{ location.address, jdbcType=VARCHAR }
+    ,#{ location.iconUrl, jdbcType=VARCHAR }
+    ,#{ location.latitude, jdbcType=DOUBLE }
+    ,#{ location.longitude, jdbcType=DOUBLE }
+    ,#{ location.phoneNumber, jdbcType=VARCHAR }
+    ,#{ location.website, jdbcType=VARCHAR }
+    ,#{ location.userRegisterDate, jdbcType=VARCHAR }
+    ,#{ location.compoundCode, jdbcType=VARCHAR }
+    ,#{ location.registerUser, jdbcType=VARCHAR })
+  </insert>
+
+</mapper>
