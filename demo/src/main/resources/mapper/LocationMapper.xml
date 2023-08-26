@@ -19,7 +19,7 @@
     FROM testdb.tbl_location
   </select>
 
-  <select id="getLocationsByRegisterUserId" resultType="Location">
+  <select id="getLocationsByRegisterUserId" parameterType="map" resultType="Location">
     SELECT
     id
     ,place_id as placeId
@@ -34,7 +34,7 @@
     ,compound_code as compoundCode
     ,register_user as registerUser
     FROM testdb.tbl_location
-    WHERE register_user = #{ registerUserId }
+    WHERE register_user = #{ requestParam.registerUserId }
   </select>
 
   <insert id="insertLocation" parameterType="Location">
@@ -63,5 +63,11 @@
     ,#{ location.compoundCode, jdbcType=VARCHAR }
     ,#{ location.registerUser, jdbcType=VARCHAR })
   </insert>
+
+  <delete id="deleteLocation" parameterType="map">
+    DELETE FROM testdb.tbl_location
+    WHERE register_user = #{ requestParam.registerUserId }
+    AND place_id = #{ requestParam.placeId }
+  </delete>
 
 </mapper>

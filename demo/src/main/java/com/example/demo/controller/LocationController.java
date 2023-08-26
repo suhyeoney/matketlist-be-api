@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping(method = RequestMethod.GET, value = "/api/v1/locations")
+@RequestMapping(value = "/api/v1/locations")
 public class LocationController {
   
   private static final String TAG = "LocationController : ";
@@ -29,8 +29,8 @@ public class LocationController {
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
 
-  @GetMapping("/registerUser/{registerUserId}")
-  public ResponseEntity<?> getLocationsByRegisterUser(@PathVariable String registerUserId) {
+  @GetMapping("/users")
+  public ResponseEntity<?> getLocationsByRegisterUser(@RequestParam(value = "registerUserId") String registerUserId) {
     
     HashMap<String, Object> result = new HashMap<>();
     result.put("data", locationService.getLocationsByRegisterUserId(registerUserId));
@@ -59,6 +59,29 @@ public class LocationController {
     result.put("resultCode", resultCode);
     result.put("resultMessage", resultMessage);
     System.out.println(">>>>> " + TAG + "insertLocation(" + location + ") called");
+
+    return new ResponseEntity<>(result, HttpStatus.OK);
+  }
+
+  @DeleteMapping("/users/{registerUserId}/{placeId}")
+  public ResponseEntity<?> deleteLocation(@PathVariable String registerUserId, @PathVariable String placeId) {
+    HashMap<String, Object> result = new HashMap<>();
+    Integer row = locationService.deleteLocation(registerUserId, placeId);
+    String resultCode = "";
+    String resultMessage = "";
+    if(row < 1) {
+      resultCode = "000";
+      resultMessage = "[Fail] Location 삭제에 실패했습니다.";
+    } else if(row == 1) {
+      resultCode = "001";
+      resultMessage = "[Success] Location 삭제에 성공했습니다.";
+    } else {
+      resultCode = "999";
+      resultMessage = "[Fail] Location 삭제가 비정상적으로 수행되었습니다.";
+    }
+    result.put("resultCode", resultCode);
+    result.put("resultMessage", resultMessage);
+    System.out.println(">>>>> " + TAG + "deleteLocation(" + registerUserId + ", " + placeId + ") called");
 
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
