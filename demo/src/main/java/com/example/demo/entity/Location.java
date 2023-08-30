@@ -1,12 +1,13 @@
 package com.example.demo.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+ @NoArgsConstructor
 // @RequiredArgsConstructor
-// @NoArgsConstructor
 public class Location {
     Integer id;
     String placeId;

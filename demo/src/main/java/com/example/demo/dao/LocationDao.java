@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.Location;
+import com.example.demo.entity.LocationRank;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,5 @@ public interface LocationDao {
     List<Location> getLocationsByRegisterUserId(@Param("requestParam") HashMap requestParam);
     Integer insertLocation(@Param("location") Location location);
     Integer deleteLocation(@Param("requestParam")HashMap requestParam);
+    List<LocationRank> getLocationRanks();
 }

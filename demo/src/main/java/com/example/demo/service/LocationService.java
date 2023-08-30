@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dao.LocationDao;
 import com.example.demo.entity.Home;
 import com.example.demo.entity.Location;
+import com.example.demo.entity.LocationRank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,10 @@ public class LocationService {
         requestParam.put("registerUserId", registerUserId);
         requestParam.put("placeId", placeId);
         return locationDao.deleteLocation(requestParam);
+    }
+
+    public List<LocationRank> getLocationRanks() {
+        return locationDao.getLocationRanks();
     }
 
 }

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 @RestController
@@ -89,7 +91,8 @@ public class LocationController {
   public ResponseEntity<?> getLocationRanks() {
 
     HashMap<String, Object> result = new HashMap<>();
-    result.put("data", locationService.getLocations());
+    result.put("data", locationService.getLocationRanks());
+    result.put("refreshTime", new SimpleDateFormat("yyyy.MM.dd HH:mm").format(new Date()));
     System.out.println(">>>>> " + TAG + "getLocationRanks() called");
 
     return new ResponseEntity<>(result, HttpStatus.OK);

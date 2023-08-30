@@ -77,4 +77,27 @@
     AND place_id = #{ requestParam.placeId }
   </delete>
 
+  <select id="getLocationRanks" resultType="LocationRank">
+    SELECT
+    RANK() OVER (ORDER BY T1.cnt DESC) as rankNum
+    ,T1.name
+    ,T1.placeId
+    ,T1.latitude
+    ,T1.longitude
+    ,T1.cnt
+    FROM (
+    SELECT
+    name
+    ,place_id as placeId
+    ,latitude
+    ,longitude
+    ,COUNT(place_id) as cnt
+    FROM testdb.tbl_location
+    GROUP BY name, place_id, latitude, longitude
+    ORDER BY cnt DESC) T1
+    LIMIT 5;
+  </select>
+
+
+
 </mapper>
