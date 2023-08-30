@@ -30,10 +30,9 @@ public class LocationController {
   }
 
   @GetMapping("/users")
-  public ResponseEntity<?> getLocationsByRegisterUser(@RequestParam(value = "registerUserId") String registerUserId) {
-    
+  public ResponseEntity<?> getLocationsByRegisterUser(@RequestParam(value = "registerUserId") String registerUserId, @RequestParam(value="regionCode") String regionCode) {
     HashMap<String, Object> result = new HashMap<>();
-    result.put("data", locationService.getLocationsByRegisterUserId(registerUserId));
+    result.put("data", locationService.getLocationsByRegisterUserId(registerUserId, regionCode));
     System.out.println(">>>>> " + TAG + "getLocationsByRegisterUser(" + registerUserId + ") called");
     
     return new ResponseEntity<>(result, HttpStatus.OK);
@@ -82,6 +81,16 @@ public class LocationController {
     result.put("resultCode", resultCode);
     result.put("resultMessage", resultMessage);
     System.out.println(">>>>> " + TAG + "deleteLocation(" + registerUserId + ", " + placeId + ") called");
+
+    return new ResponseEntity<>(result, HttpStatus.OK);
+  }
+
+  @GetMapping("/ranks")
+  public ResponseEntity<?> getLocationRanks() {
+
+    HashMap<String, Object> result = new HashMap<>();
+    result.put("data", locationService.getLocations());
+    System.out.println(">>>>> " + TAG + "getLocationRanks() called");
 
     return new ResponseEntity<>(result, HttpStatus.OK);
   }

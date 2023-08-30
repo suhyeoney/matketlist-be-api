@@ -20,4 +20,5 @@ public class Location {
     String userRegisterDate;
     String compoundCode;
     String registerUser;
+    String regionCode;
 }

@@ -19,9 +19,10 @@ public class LocationService {
         return locationDao.getLocations();
     }
 
-    public List<Location> getLocationsByRegisterUserId(String registerUserId) {
+    public List<Location> getLocationsByRegisterUserId(String registerUserId, String regionCode) {
         HashMap<String, Object> requestParam = new HashMap<>();
         requestParam.put("registerUserId", registerUserId);
+        requestParam.put("regionCode", regionCode);
         return locationDao.getLocationsByRegisterUserId(requestParam);
     }
 

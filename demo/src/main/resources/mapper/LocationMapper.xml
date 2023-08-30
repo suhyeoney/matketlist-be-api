@@ -16,6 +16,7 @@
     ,user_register_date as userRegisterDate
     ,compound_code as compoundCode
     ,register_user as registerUser
+    ,region_code as regionCode
     FROM testdb.tbl_location
   </select>
 
@@ -33,8 +34,12 @@
     ,user_register_date as userRegisterDate
     ,compound_code as compoundCode
     ,register_user as registerUser
+    ,region_code as regionCode
     FROM testdb.tbl_location
     WHERE register_user = #{ requestParam.registerUserId }
+    <if test="requestParam.regionCode != null and requestParam.regionCode != ''">
+      AND region_code = #{ requestParam.regionCode }
+    </if>
   </select>
 
   <insert id="insertLocation" parameterType="Location">
@@ -49,7 +54,8 @@
     ,website
     ,user_register_date
     ,compound_code
-    ,register_user)
+    ,register_user
+    ,region_code)
     VALUES (
     #{ location.placeId, jdbcType=VARCHAR }
     ,#{ location.name, jdbcType=VARCHAR }
@@ -61,7 +67,8 @@
     ,#{ location.website, jdbcType=VARCHAR }
     ,#{ location.userRegisterDate, jdbcType=VARCHAR }
     ,#{ location.compoundCode, jdbcType=VARCHAR }
-    ,#{ location.registerUser, jdbcType=VARCHAR })
+    ,#{ location.registerUser, jdbcType=VARCHAR }
+    ,#{ location.regionCode, jdbcType=VARCHAR })
   </insert>
 
   <delete id="deleteLocation" parameterType="map">
